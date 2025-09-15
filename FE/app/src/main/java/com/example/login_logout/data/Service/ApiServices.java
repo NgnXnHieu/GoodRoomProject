@@ -2,6 +2,7 @@ package com.example.login_logout.data.Service;
 
 import com.example.login_logout.data.api2.UserApi;
 import com.example.login_logout.data.api2.HomestayApi;
+import com.example.login_logout.newui.Api.BookingApi;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
@@ -117,4 +118,8 @@ public class ApiServices {
     public HomestayApi getHomestayApi() {
         return retrofit.create(HomestayApi.class);
     }
+    public BookingApi getBookingApi() {
+        return retrofit.create(BookingApi.class);
+    }
+
 }

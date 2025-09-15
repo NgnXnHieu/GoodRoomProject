@@ -1,10 +1,8 @@
 package com.example.backendTeam12.utils;
 
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class Generate {
-
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public static String hashPassword(String password) {
@@ -14,8 +12,7 @@ public class Generate {
     public static boolean checkPassword(String plainPassword, String hashedPassword) {
         return encoder.matches(plainPassword, hashedPassword);
     }
-
-    public static String generateCode() {
+     public static String generateCode() {
         String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         int CODE_LENGTH = 6;
         java.security.SecureRandom random = new java.security.SecureRandom();
@@ -28,5 +25,4 @@ public class Generate {
 
         return code.toString();
     }
-
 }

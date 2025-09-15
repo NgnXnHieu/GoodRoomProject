@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import com.example.login_logout.R;
 import com.example.login_logout.data.model2.UserDTO;
+import com.example.login_logout.newui.old_activity.ForgotPasswordActivity;
 import com.example.login_logout.utils.PreferencesManager;
 import com.example.login_logout.viewmodel.UserViewModel;
 
@@ -24,6 +25,8 @@ public class Login extends AppCompatActivity {
     private ProgressBar progressBar;
     private UserViewModel userViewModel;
     private PreferencesManager preferencesManager;
+    private TextView txtForgotPassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,12 @@ public class Login extends AppCompatActivity {
         loginBtn = findViewById(R.id.login_button);
         txtChuyen = findViewById(R.id.login_txt_chuyen);
         progressBar = findViewById(R.id.progressBar);
+        txtForgotPassword = findViewById(R.id.txtForgotPassword);
+        txtForgotPassword.setOnClickListener(v -> {
+            Log.d(TAG, "Navigating to ForgotPasswordActivity");
+            Intent intent = new Intent(Login.this, ForgotPasswordActivity.class);
+            startActivity(intent);
+        });
 
         // Khởi tạo ViewModel
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);

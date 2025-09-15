@@ -1,8 +1,11 @@
 package com.example.login_logout.newui.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 public class BookingBill {
+    @SerializedName("id")
     private Long bookingId;
     private Long roomId;
     private String roomName;

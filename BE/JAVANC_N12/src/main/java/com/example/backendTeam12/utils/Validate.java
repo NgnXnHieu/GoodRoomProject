@@ -1,6 +1,8 @@
 package com.example.backendTeam12.utils;
 
+
 public class Validate {
+    
     public static boolean isValidPhoneNumber(String phone) {
         return phone != null && phone.matches("^[0-9]{9,11}$");
     }

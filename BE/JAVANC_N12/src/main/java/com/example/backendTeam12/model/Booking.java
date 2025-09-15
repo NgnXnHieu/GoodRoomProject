@@ -67,4 +67,5 @@ public class Booking {
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
+    
 }

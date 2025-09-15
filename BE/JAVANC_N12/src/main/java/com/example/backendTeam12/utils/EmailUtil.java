@@ -16,7 +16,6 @@ import jakarta.mail.internet.MimeMessage;
 
 @Component
 public class EmailUtil {
-
     private final JavaMailSender mailSender;
 
     @Value("${app.reset-token-expiration}")
@@ -32,12 +31,10 @@ public class EmailUtil {
         InputStream is = new ClassPathResource("templates/reset-password.html").getInputStream();
         String template = new String(is.readAllBytes(), StandardCharsets.UTF_8);
 
-        // Replace placeholders
         String content = template.replace("${username}", userName)
-                                 .replace("${codeResetPassword}", code)
-                                 .replace("${expiration}", String.valueOf(expirationMinutes));
+                .replace("${codeResetPassword}", code)
+                .replace("${expiration}", String.valueOf(expirationMinutes));
 
-        // Send email
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, "UTF-8");
         helper.setTo(to);

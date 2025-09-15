@@ -24,11 +24,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    
     private final EmailUtil emailUtil;
+
     public UserServiceImpl(EmailUtil emailUtil) {
         this.emailUtil = emailUtil;
     }
+
     private final Map<String, CodeInfo> resetCodes = new ConcurrentHashMap<>();
 
     @Override
@@ -49,8 +50,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User updateUser(Long id, User user) {
         User existingUser = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-        
-        //update
+
+        // update
         existingUser.setUserName(user.getUserName());
         existingUser.setPassword(Generate.hashPassword(user.getPassword()));
         existingUser.setEmail(user.getEmail());
@@ -60,7 +61,7 @@ public class UserServiceImpl implements UserService {
         existingUser.setAvatar(user.getAvatar());
         existingUser.setUpdatedAt(LocalDateTime.now());
 
-        //save
+        // save
         return userRepository.save(existingUser);
     }
 
@@ -100,8 +101,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void loginUser(String username, String password){
-         Optional<User> optionalUser = getUserByUserName(username);
+    public void loginUser(String username, String password) {
+        Optional<User> optionalUser = getUserByUserName(username);
         User user = optionalUser.orElseThrow(() -> new RuntimeException("User not found with username: " + username));
 
         if (!Generate.checkPassword(password, user.getPassword())) {
@@ -111,30 +112,31 @@ public class UserServiceImpl implements UserService {
         user.setUpdatedAt(LocalDateTime.now());
         userRepository.save(user);
     }
+
     @Override
     public List<User> searchUsersByUsername(String search) {
         return userRepository.findByUserNameContainingIgnoreCase(search);
     }
 
     @Override
-    public int percentNewUser(){
-        LocalDate  now = LocalDate.now();
+    public int percentNewUser() {
+        LocalDate now = LocalDate.now();
         int month = now.getMonthValue();
         int year = now.getYear();
 
         long totalUsers = userRepository.countAllUser();
-        if (totalUsers == 0){
+        if (totalUsers == 0) {
             return 0;
         }
 
         long newUsers = userRepository.countAllUserCreatedAtMonth(month, year);
-        if(newUsers == 0){
+        if (newUsers == 0) {
             return 0;
         }
 
-        int percent = (int) (((double)newUsers / totalUsers) * 100);
-       
-        return  percent;
+        int percent = (int) (((double) newUsers / totalUsers) * 100);
+
+        return percent;
     }
 
     @Override
@@ -142,7 +144,6 @@ public class UserServiceImpl implements UserService {
         User user = getUserByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Email không tồn tại"));
 
-        
         String code = Generate.generateCode();
         LocalDateTime expiry = LocalDateTime.now().plusMinutes(15);
 
@@ -152,7 +153,7 @@ public class UserServiceImpl implements UserService {
         emailUtil.sendResetPasswordEmail(email, code, username);
 
         return code;
-    } 
+    }
 
     @Override
     public boolean verifyResetCode(String email, String code) {
@@ -160,10 +161,9 @@ public class UserServiceImpl implements UserService {
         if (info == null || !info.getCode().equals(code)) {
             return false;
         }
-
         if (LocalDateTime.now().isAfter(info.getExpiry())) {
-            resetCodes.remove(email); 
-            return false; 
+            resetCodes.remove(email);
+            return false;
         }
         return true;
     }
@@ -174,14 +174,15 @@ public class UserServiceImpl implements UserService {
         if (codeInfo == null || LocalDateTime.now().isAfter(codeInfo.getExpiry())) {
             throw new RuntimeException("Code không hợp lệ hoặc đã hết hạn");
         }
-        
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Email không tồn tại"));
+        resetCodes.remove(email);
+
         if (!codeInfo.getCode().equals(code)) {
             throw new RuntimeException("Mã xác nhận không đúng");
         }
 
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Email không tồn tại"));
-        
+        // Hash password mới
         user.setPassword(Generate.hashPassword(newPassword));
         user.setUpdatedAt(LocalDateTime.now());
         userRepository.save(user);
@@ -197,4 +198,4 @@ public class UserServiceImpl implements UserService {
         user.setUpdatedAt(LocalDateTime.now());
         userRepository.save(user);
     }
-} 
+}
