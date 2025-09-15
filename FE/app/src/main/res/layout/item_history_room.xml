@@ -84,5 +84,16 @@
                 android:textSize="12sp"
                 android:paddingTop="2dp" />
         </LinearLayout>
+        <ImageView
+            android:id="@+id/imgOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/setting"
+            android:contentDescription="Tùy chọn"
+            android:layout_gravity="end"
+            android:padding="8dp"
+            android:clickable="true"
+            android:focusable="true"/>
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -7,6 +7,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -17,4 +18,7 @@ public interface BookingApi {
 
     @GET("api/booking-history/user/{userId}")
     Call<List<BookingBill>> getBookingHistoryByUserId(@Path("userId") Long userId);
+
+    @DELETE("api/booking-history/{id}")
+    Call<Void> deleteBooking(@Path("id") Long id);
 }

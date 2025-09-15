@@ -55,9 +55,13 @@
             android:exported="false">
         </activity>
         <activity
-            android:name=".newui.old_activity.RoomHistory_Activity"
-            android:exported="false">
-        </activity>
+            android:name=".newui.old_activity.ForgotPasswordActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".newui.old_activity.ResetPasswordActivity"
+            android:exported="false" />
+
 
 
 

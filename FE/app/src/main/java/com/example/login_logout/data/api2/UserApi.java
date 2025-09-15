@@ -7,6 +7,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 import java.util.List;
 import java.util.Map;
@@ -90,13 +91,20 @@ public interface UserApi {
      * Yêu cầu khôi phục mật khẩu
      * @param emailData Map chứa email cần khôi phục mật khẩu
      */
+
     @POST("api/users/forgot-password")
     Call<Void> forgotPassword(@Body Map<String, String> emailData);
 
     /**
      * Đặt lại mật khẩu mới
-     * @param resetData Map chứa token reset và mật khẩu mới
+     * @param ?resetData Map chứa token reset và mật khẩu mới
      */
     @POST("api/users/reset-password")
-    Call<Void> resetPassword(@Body Map<String, String> resetData);
+    Call<Void> resetPassword(
+            @Query("email") String email,
+            @Query("code") String code,
+            @Query("newPassword") String newPassword
+    );
+    @GET("api/users/email/{email}")
+    Call<UserDTO> getUserByEmail(@Path("email") String email);
 }

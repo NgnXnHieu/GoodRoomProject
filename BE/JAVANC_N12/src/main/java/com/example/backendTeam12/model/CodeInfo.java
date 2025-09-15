@@ -3,6 +3,7 @@ package com.example.backendTeam12.model;
 import java.time.LocalDateTime;
 
 public class CodeInfo {
+
     private final String code;         // mã reset 6 ký tự
     private final LocalDateTime expiry; // thời hạn hết hiệu lực
 

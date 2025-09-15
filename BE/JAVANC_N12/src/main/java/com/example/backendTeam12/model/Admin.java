@@ -24,4 +24,5 @@ public class Admin {
 
     @Column(name = "pass_word")
     private String password;
+
 }

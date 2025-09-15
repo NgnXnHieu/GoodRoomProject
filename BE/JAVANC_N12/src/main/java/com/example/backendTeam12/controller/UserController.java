@@ -140,5 +140,4 @@ public class UserController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
 } 

@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import com.example.backendTeam12.model.Homestay;
 import com.example.backendTeam12.model.Review;
 
+@Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
     public List<Review> findByHomestayHomestayId(Long homestayId);
     public List<Review> findByUserUserId(Long userId);

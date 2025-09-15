@@ -18,4 +18,11 @@ public class BookingHistoryServiceImpl implements  BookingHistoryService {
     public List<BookingHistory> getHistoryByUserId(Long userId) {
         return bookingHistoryRepository.findByUserId(userId);
     }
+    public boolean deleteHistory(Long id) {
+        if (bookingHistoryRepository.existsById(id)) {
+            bookingHistoryRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }
